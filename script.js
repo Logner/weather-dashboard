@@ -136,15 +136,18 @@ var populateIndex = function (cityData) {
         body.attr('class', 'class-body')
         var img = $('<img>');
         img.attr('id', "img"+i)
+        img.attr('class', "card-img-top")
         var temp = $('<h7>');
-        temp.html(date.temp+'°C with '+date.desc);
-        temp.attr('class', 'card-text text-info')
+        temp.html(date.temp+'°C');
+        temp.attr('class', 'card-text text-info');
+        var desc = $('<p>').attr('class', 'card-text text-info')
+        desc.html(date.desc)
         var humidity = $('<p>');
         humidity.attr('class', 'card-text text-info')
         humidity.html('Humidity: '+date.humidity+'%');
 
         header.append(time);
-        body.append(img,temp,humidity);
+        body.append(img,temp,desc,humidity);
         dateContainer.append(header,body);
         forecastContainer.append(dateContainer);
 

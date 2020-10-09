@@ -12,6 +12,10 @@
     width: 5rem;
 }
 
+.forecast-container .col{
+    min-width: 12rem;
+}
+
 .list-group-item{
     user-select: none;
 }
