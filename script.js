@@ -254,8 +254,9 @@ getCityData('Toronto');
 
 // Trigger the searchbox function when enter is released
 document.addEventListener("keyup", function(event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.code === 13) {
+    // Number 13 is the "Enter" key on the keyboard?? why doesnt that work?
+    console.log(event.code);
+    if (event.code == 'Enter') {
         document.querySelector('#search').click()
     }
 });
