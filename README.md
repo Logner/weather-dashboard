@@ -1,8 +1,11 @@
-forecast call
-^ returns a list of projected weathers
+# [Work Day Scheduler](https://logner.github.io/weather-dashboard)
 
-weather call
-^ current weather
+This is the week 6 project from the University of Toronto SCS bootcamp. I have used jquery, bootstrap and moment.js and the openWeathermap API for this project.
 
-new Date() == current date and time
-new date('yyyy-mm-dd hh:mm:ss') == date and time corresponding to input
+Enter Key is enabled for quicker searching, i am currently showing 5-day forecasts.
+
+as always - this is a responsive app!
+
+This project is deployed at: https://logner.github.io/weather-dashboard
+
+![screenshot](./assets/weather-dashboard.png)
