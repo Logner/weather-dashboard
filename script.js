@@ -65,7 +65,6 @@ function getCityData (city) {
 
 var convertDate = function(input, format) {
     var date = moment(input, 'X');
-    console.log(date)
     
     if (format == 'current') {
             return date.format('LLL');
@@ -108,6 +107,37 @@ var getUvHtml = function(num) {
     }
 }
 
+var saveSearch = function(name) {
+    var searchHistory = localStorage.getItem('weather-history')
+    if (searchHistory) {
+        searchHistory = JSON.parse(searchHistory);
+        searchHistory[name] = 'true';
+        searchHistory = JSON.stringify(searchHistory);
+        localStorage.setItem('weather-history',searchHistory);
+    }
+    else {
+        searchHistory = {};
+        searchHistory[name] = true;
+        searchHistory = JSON.stringify(searchHistory);
+        localStorage.setItem('weather-history',searchHistory);
+    }
+}
+
+var loadSearches = function() {
+    searchHistory = localStorage.getItem('weather-history')
+    console.log(searchHistory)
+    if (searchHistory) {
+        searchHistory = JSON.parse(searchHistory);
+        var buttons = $('.history-container')
+        for (x in searchHistory) {
+        var button = $('<li>').attr('class','list-group-item list-group-item-action').html(x)
+        buttons.append(button)
+        button.on('click', function(event) {getCityData(event.target.textContent)})
+        }
+
+    }
+}
+
 var populateIndex = function (cityData) {
     // Update Page Content
     $('.name').html('<h5>'+cityData.name+' on '+convertDate(cityData.time, 'current')+'</h5>');
@@ -121,7 +151,6 @@ var populateIndex = function (cityData) {
     var forecastContainer = $('.forecast-container')
     forecastContainer.html("")
     cityData.forecast.forEach(function(date, i){
-        console.log(date)
         var dateContainer = $('<div>');
         dateContainer.attr('class', 'card m-3 border-info col text-center');
 
@@ -157,7 +186,25 @@ var populateIndex = function (cityData) {
 
 
     // add button and eventListener, check if button exists
-    console.log(cityData)
+    var buttons = $('.history-container')
+    if (buttons.children().length === 0) {
+        var newBtn = $('<li>').attr('class','list-group-item list-group-item-action').html(cityData.name)
+        buttons.append(newBtn)
+        newBtn.on('click', function(event) {getCityData(event.target.textContent)})
+        saveSearch(cityData.name)
+    } else {
+        for (i=0; i<buttons.children().length; i++) {
+            button = buttons.children()[i]
+            if ($(button).html()===cityData.name){
+                break;
+            }else if(i == buttons.children().length-1){
+                var newBtn = $('<li>').attr('class','list-group-item list-group-item-action').html(cityData.name)
+                buttons.append(newBtn)
+                newBtn.on('click', function(event) {getCityData(event.target.textContent)})
+                saveSearch(cityData.name)
+            }
+        }
+    }
 }
 
 $('#search').on('click', function(){
@@ -165,6 +212,6 @@ $('#search').on('click', function(){
     //TODO: Validate input to make sure only alpha characters are present
     getCityData(location.value);
     location.value = ''
-})
-
-getCityData('Toronto')
+});
+loadSearches();
+getCityData('Toronto');
