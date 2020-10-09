@@ -4,7 +4,7 @@ This is the week 6 project from the University of Toronto SCS bootcamp. I have u
 
 Enter Key is enabled for quicker searching, i am currently showing 5-day forecasts.
 
-as always - this is a responsive app!
+as always - this is a (semi) responsive app!
 
 This project is deployed at: https://logner.github.io/weather-dashboard
 
