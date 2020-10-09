@@ -36,7 +36,7 @@ function getCityData (city) {
     // api data
     var key = 'd91f911bcf2c0f925fb6535547a5ddc9';
     var unit = 'metric';
-    var base = 'http://api.openweathermap.org/data/2.5/';
+    var base = 'https://api.openweathermap.org/data/2.5/';
 
     // fetch requests
     fetch (base+'weather?q='+city+'&appid='+key+'&units='+unit)
@@ -172,7 +172,7 @@ var populateIndex = function (cityData) {
     // Update Page Content
     $('.name').html('<h5>'+cityData.name+' on '+convertDate(cityData.time, 'current')+'</h5>');
     $('.temp').html(cityData.temp+'°C with '+cityData.desc+' <img id="current-img">');
-    $('#current-img').attr('src', "http://openweathermap.org/img/w/"+cityData.icon+".png")
+    $('#current-img').attr('src', "https://openweathermap.org/img/w/"+cityData.icon+".png")
     $('.humidity').html('Humidity: '+cityData.humidity+'%');
     $('.wind').html('Wind Speed: '+cityData.windSpeed+' m/s blowing '+getWindDirection(cityData.windDir));
     $('.uv').html('UV: <span class="'+getUvHtml(cityData.uv)+' px-2"> '+cityData.uv+' </span>')
@@ -211,7 +211,7 @@ var populateIndex = function (cityData) {
         forecastContainer.append(dateContainer);
 
         // Must append parents to actual HTML before forcing an image draw....
-        $('#img'+i).attr('src', "http://openweathermap.org/img/w/"+date.icon+".png")
+        $('#img'+i).attr('src', "https://openweathermap.org/img/w/"+date.icon+".png")
     })
 
 
