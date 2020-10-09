@@ -2,6 +2,11 @@
     list-style-type: none;
 }
 
+.temp img{
+    min-height: 1rem;
+    min-width: 1rem;
+}
+
 .list-group-item{
     user-select: none;
 }

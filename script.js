@@ -67,17 +67,57 @@ var convertDate = function(input) {
     var date = new Date(parseInt(input) * 1000);
     console.log(date)
     
-    return date.toLocaleDateString() + date.toLocaleTimeString();
+    return date.toLocaleDateString() +' at '+ date.toLocaleTimeString();
+}
+
+var getWindDirection = function(windDegrees) {
+    var deg = parseInt(windDegrees);
+    if (deg < 30) {
+        return 'N'
+    }else if(deg < 60) {
+        return 'NE'
+    }else if(deg < 120) {
+        return 'E'
+    }else if(deg < 150) {
+        return 'SE'
+    }else if(deg < 210){
+        return 'S'
+    }else if(deg < 240){
+        return 'SW'
+    }else if(deg < 300){
+        return 'W'
+    }else if(deg < 330){
+        return 'NW'
+    }else{
+        return 'N'
+    }
+}
+
+var getUvHtml = function(num) {
+    var uv = parseInt(num);
+    if (uv < 3) {
+        return "bg-success text-white"
+    } else if (uv < 5) {
+        return "bg-warning text-dark"
+    }else{
+        return "bg-danger text-white"
+    }
 }
 
 var populateIndex = function (cityData) {
-    // Find right elements
-    $('.current-weather.name')
-    $('.current-weather.temp')
-    $('.current-weather.humidity')
-    $('.current-weather.wind')
+    // Update Page Content
+    $('.name').html('<h5>'+cityData.name+' on '+convertDate(cityData.time)+'</h5>');
+    $('.temp').html(cityData.temp+'°C with '+cityData.desc+
+                        ' <img id="current-img">');
+    $('#current-img').attr('src', "http://openweathermap.org/img/w/"+cityData.icon+".png")
+    $('.humidity').html('Humidity: '+cityData.humidity+'%');
+    $('.wind').html('Wind Speed: '+cityData.windSpeed+' m/s blowing '+getWindDirection(cityData.windDir));
+    $('.uv').html('UV: <span class="'+getUvHtml(cityData.uv)+' px-2"> '+cityData.uv+' </span>')
 
-    // update elements
+    // update Forecast Container
+    var forecastContainer = $('.forecast-container')
+    cityData.forecast.ForEach(function(date))
+
 
     // add button and eventListener, check if button exists
     console.log(cityData)
@@ -89,3 +129,5 @@ $('#search').on('click', function(){
     getCityData(location.value);
     location.value = ''
 })
+
+getCityData('Toronto')
