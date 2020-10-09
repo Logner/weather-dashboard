@@ -1,5 +1,5 @@
-// valid characters for highscore.
-var validChars = [];
+// valid characters for searchbox input.
+var validChars = [',', ' '];
 
 // Character validation loop;
 var validateChars = function(inp) {
@@ -44,7 +44,7 @@ function getCityData (city) {
     .then (res => res.json())
     .then( response => {
         // Populate empty data container
-        data.name = response.name;
+        data.name = response.name+", "+response.sys.country;
         data.id = response.id;
         data.time = response.dt;
         data.lat = response.coord.lat;
