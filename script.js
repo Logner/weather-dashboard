@@ -1,3 +1,34 @@
+// valid characters for highscore.
+var validChars = [];
+
+// Character validation loop;
+var validateChars = function(inp) {
+    char_switch = false;
+    input = inp.toUpperCase();
+    for (i=0; i < input.length; i++) {
+        for (j=0; j < validChars.length; j++) {
+            if (input[i] == validChars[j]){
+                char_switch = true;
+                break;
+            }
+            char_switch = false
+        }
+        if (char_switch == false) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Input generating valid characters for highscore storage
+function gen_continuous_char_list(start_hex, end_hex) {
+    for (var i = (hex.hex_to_int(start_hex)); i <= (hex.hex_to_int(end_hex)); i++) {
+      validChars.push(String.fromCharCode(i));
+    };
+  };
+// A-Z Unicode: 41-5A 
+gen_continuous_char_list('41', '5A')
+
 function getCityData (city) {
     // Empty Data
     var data = {};
@@ -125,7 +156,6 @@ var saveSearch = function(name) {
 
 var loadSearches = function() {
     searchHistory = localStorage.getItem('weather-history')
-    console.log(searchHistory)
     if (searchHistory) {
         searchHistory = JSON.parse(searchHistory);
         var buttons = $('.history-container')
@@ -210,8 +240,14 @@ var populateIndex = function (cityData) {
 $('#search').on('click', function(){
     var location = document.querySelector('#city-input');
     //TODO: Validate input to make sure only alpha characters are present
-    getCityData(location.value);
-    location.value = ''
+    if (validateChars(location.value)) {
+        getCityData(location.value);
+        location.value = ''
+        location.placeholder = 'Search for a city'
+    } else {
+        location.value = ''
+        location.placeholder = 'only A-Z!'
+    }
 });
 loadSearches();
 getCityData('Toronto');
