@@ -63,11 +63,15 @@ function getCityData (city) {
     })
 }
 
-var convertDate = function(input) {
-    var date = new Date(parseInt(input) * 1000);
+var convertDate = function(input, format) {
+    var date = moment(input, 'X');
     console.log(date)
     
-    return date.toLocaleDateString() +' at '+ date.toLocaleTimeString();
+    if (format == 'current') {
+            return date.format('LLL');
+    } else {
+        return date.format('LL')
+    }
 }
 
 var getWindDirection = function(windDegrees) {
@@ -106,9 +110,8 @@ var getUvHtml = function(num) {
 
 var populateIndex = function (cityData) {
     // Update Page Content
-    $('.name').html('<h5>'+cityData.name+' on '+convertDate(cityData.time)+'</h5>');
-    $('.temp').html(cityData.temp+'°C with '+cityData.desc+
-                        ' <img id="current-img">');
+    $('.name').html('<h5>'+cityData.name+' on '+convertDate(cityData.time, 'current')+'</h5>');
+    $('.temp').html(cityData.temp+'°C with '+cityData.desc+' <img id="current-img">');
     $('#current-img').attr('src', "http://openweathermap.org/img/w/"+cityData.icon+".png")
     $('.humidity').html('Humidity: '+cityData.humidity+'%');
     $('.wind').html('Wind Speed: '+cityData.windSpeed+' m/s blowing '+getWindDirection(cityData.windDir));
@@ -116,7 +119,38 @@ var populateIndex = function (cityData) {
 
     // update Forecast Container
     var forecastContainer = $('.forecast-container')
-    cityData.forecast.ForEach(function(date))
+    forecastContainer.html("")
+    cityData.forecast.forEach(function(date, i){
+        console.log(date)
+        var dateContainer = $('<div>');
+        dateContainer.attr('class', 'card m-3 border-info col text-center');
+
+        var header = $("<div>");
+        header.attr('class', 'card-header');
+        var time = $('<h6>');
+        time.attr('class', 'card-title text-info')
+        time.html(convertDate(date.time, 'forecast'));
+
+
+        var body = $('<div>')
+        body.attr('class', 'class-body')
+        var img = $('<img>');
+        img.attr('id', "img"+i)
+        var temp = $('<h7>');
+        temp.html(date.temp+'°C with '+date.desc);
+        temp.attr('class', 'card-text text-info')
+        var humidity = $('<p>');
+        humidity.attr('class', 'card-text text-info')
+        humidity.html('Humidity: '+date.humidity+'%');
+
+        header.append(time);
+        body.append(img,temp,humidity);
+        dateContainer.append(header,body);
+        forecastContainer.append(dateContainer);
+
+        // Must append parents to actual HTML before forcing an image draw....
+        $('#img'+i).attr('src', "http://openweathermap.org/img/w/"+date.icon+".png")
+    })
 
 
     // add button and eventListener, check if button exists
