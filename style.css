@@ -1,0 +1,7 @@
+.history-container li{
+    list-style-type: none;
+}
+
+.list-group-item{
+    user-select: none;
+}

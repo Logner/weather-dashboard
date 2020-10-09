@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Weather Dashboard</title>
+  </head>
+
+  <body>
+    <header class="jumbotron">
+      <h1 class="display-6">Weather Dashboard</h1>
+      <p class="lead">Find what the weather is like in various cities</p>
+    </header>
+    <div class="content row">
+      <div class='left-bar col-3'>
+        <div class='search-bar'>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id='city-input' placeholder="Search for a city" aria-label="Search for a city">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary search" type="button" id='search'>Search</button>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group history-container">
+          <li class="list-group-item list-group-item-action">Toronto</li>
+        </ul>
+      </div>
+      <div class='weather-info col'>
+        <div class='current-weather row'>
+          <div class="card border-dark mb-3" style='min-width: 90%;'>
+            <div class="card-header name"><h5>City Name at date and time</h5></div>
+            <div class="card-body text-dark">
+              <h6 class="card-text mb-3 temp">Temperature, description</h6>
+              <p class="card-text humidity">Humidity</p>
+              <p class="card-text wind">Wind Speed</p>
+              <p class="card-text uv">UV Index</p>
+            </div>
+          </div>
+        </div>
+        <div class='forecast'>
+          <h3>5-Day Forecast</h3>
+          <div class='forecast-container row'>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
